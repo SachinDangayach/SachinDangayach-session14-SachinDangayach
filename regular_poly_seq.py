@@ -62,7 +62,7 @@ class RegularPolySeq:
 
     def __str__(self):
         """String represnetation"""
-        return f"Polygon sequence with seq_len = {self.vert_count - 2} and common cirum_radius = {self.radius}"
+        return f"Polygon iterable with seq_len = {self.vert_count - 2} and common cirum_radius = {self.radius}"
 
     def __repr__(self):
         """ Return string for RegularPolySeq"""
@@ -70,17 +70,18 @@ class RegularPolySeq:
 
     def __iter__(self):
         """Get the iterable"""
-        return self.PolyIterator(vert_count = self.vert_count,
-                                 radius=self.radius)
+        # return self.PolyIterator(self,
+        #                          vert_count = self.vert_count,
+        #                          radius=self.radius)
+        return self.PolyIterator(self)
 
 
     class PolyIterator:
         """Class for iterator"""
-        def __init__(self,vert_count, radius):
-            self.vert_count = vert_count
-            self.radius = radius
-            self.current_poly_count = vert_count
-            self.max_effi_poly = None
+        def __init__(self,poly_obj):
+            self.vert_count = poly_obj.vert_count
+            self.radius = poly_obj.radius
+            self.current_poly_count = poly_obj.vert_count
 
         def __iter__(self):
             """return iterator"""
@@ -88,7 +89,6 @@ class RegularPolySeq:
 
         def __next__(self):
             """Get next item in the iterator"""
-            print(f"hi from next{self.current_poly_count}")
             if self.current_poly_count < 3:
                 raise StopIteration
             else:
@@ -98,7 +98,7 @@ class RegularPolySeq:
 
         def __str__(self):
             """String represnetation"""
-            return f"Polygon sequence with seq_len = {self.vert_count - 2} and common cirum_radius = {self.radius}"
+            return f"Polygon iterator with item count = {self.vert_count - 2} and common cirum_radius = {self.radius}"
 
         def __repr__(self):
             """ Return string for RegularPolySeq"""
